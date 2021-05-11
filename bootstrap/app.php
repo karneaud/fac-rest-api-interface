@@ -128,6 +128,7 @@ if(env('APP_ENV') != 'production') {
 
 // activate Lumen modules provider
 $app->register(Mbf\Modules\LumenModulesServiceProvider::class);
+$app->register(Modules\FAC\Providers\FACServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
