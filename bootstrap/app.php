@@ -125,6 +125,9 @@ $app->make('queue');
 if(env('APP_ENV') != 'production') { 
  	$app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class); 
  }
+
+// activate Lumen modules provider
+$app->register(Mbf\Modules\LumenModulesServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
