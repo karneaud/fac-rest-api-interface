@@ -26,6 +26,9 @@ $router->group(
         'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors'],
     ],
     function () use ($router) {
+		$router->get('/confirmed/{token}', function($token){
+        	print $token;
+        });
 
     /*
      * Routes that do not require a JWT
