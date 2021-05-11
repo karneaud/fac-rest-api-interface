@@ -1,0 +1,13 @@
+{
+    "name": "FAC",
+    "alias": "fac",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FAC\\Providers\\FACServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Mbf/fac",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mohammad Baladi",
+            "email": "mbf5923@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\FAC\\": ""
+        }
+    }
+}
