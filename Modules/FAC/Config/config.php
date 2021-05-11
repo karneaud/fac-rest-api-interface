@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'FAC'
+    'name' => 'FAC',
+	'version' => 1
 ];
