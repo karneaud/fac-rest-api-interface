@@ -89,7 +89,7 @@ $app->routeMiddleware([
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
 
 // JWTs
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
@@ -121,7 +121,10 @@ $app->alias('mail.manager', Illuminate\Mail\MailManager::class);
 $app->alias('mail.manager', Illuminate\Contracts\Mail\Factory::class);
 
 $app->make('queue');
-
+// if not in production at extra stuff
+if(env('APP_ENV') != 'production') { 
+ 	$app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class); 
+ }
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
