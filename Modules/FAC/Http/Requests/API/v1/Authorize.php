@@ -17,11 +17,11 @@ class Authorize extends FormRequest
             'order_id' => "required", 
             'amount' => 'required|numeric', 
         	'currency' => ['required', function ($attribute, $value, $fail) {
-            	if (!in_array( $value, ['TT', 'US', 'BB', 'JM' ] )) {
+            	if (!in_array( $value, ['TTD', 'USD', 'BBD', 'JMD' ] )) {
                 	$fail($attribute.' is invalid.');
             	}
         	}],
-        	'card' => 'required|numeric|min:13|max:18',
+        	'card' => 'required|numeric|digits_between:13,18',
         	'cvv' => 'required|digits:3', 
         	'expiry_month' => 'required|digits:2', 
         	'expiry_year' => 'required|digits:2'
