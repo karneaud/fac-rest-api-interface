@@ -27,7 +27,8 @@
         "mbf5923/lumen-modules": "8.0.x-dev",
         "symfony/http-client": "^5.2",
         "omnipay/common": "^3.0",
-        "bitpiston/omnipay-first-atlantic-commerce": "dev-master#ddd014233b9b9f29851e9f6a53d5885b21702521"
+        "bitpiston/omnipay-first-atlantic-commerce": "dev-master#03a3e9d111fd29ba3ba5a94cf521b0c7feeb53ec",
+        "php-http/buzz-adapter": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",
