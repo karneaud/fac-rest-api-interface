@@ -23,8 +23,8 @@ class Authorize extends FormRequest
         	}],
         	'card' => 'required|numeric|digits_between:13,18',
         	'cvv' => 'required|digits:3', 
-        	'expiry_month' => 'required|digits:2', 
-        	'expiry_year' => 'required|digits:2'
+        	'expiry_month' => 'required|integer|digits_between:1,2', 
+        	'expiry_year' => 'required|numeric|digits:4'
         ];
     }
 
