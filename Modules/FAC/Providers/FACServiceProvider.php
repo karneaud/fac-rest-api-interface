@@ -59,6 +59,7 @@ class FACServiceProvider extends ServiceProvider
     	$this->app->router->group([
                 'namespace' => "Modules\\".$this->moduleName."\Http\Controllers",
         		'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors'],
+        		'prefix' => 'fac'
             ], function ($router) {
                 require __DIR__.'/../Routes/web.php';
         		// register api routes
