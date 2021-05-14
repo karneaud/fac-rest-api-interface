@@ -1,0 +1,14 @@
+{
+    "name": "FAC",
+    "alias": "fac",
+    "description": "FAC module for lumen fac api",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FAC\\Providers\\FACServiceProvider"
+    ],
+    "aliases": {},
+    "requires": [
+    	"bitpiston/omnipay-first-atlantic-commerce"
+    ]
+}

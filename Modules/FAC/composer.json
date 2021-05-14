@@ -1,0 +1,33 @@
+{
+    "name": "lumen/fac-module",
+    "description": "FAC Module for Lumen",
+	"type":"laravel-module",
+    "authors": [
+        {
+            "name": "Kendall Arneaud",
+            "email": "kendall.arneaud@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+	"require": {
+    	"bitpiston/omnipay-first-atlantic-commerce":"dev-master#ddd014233b9b9f29851e9f6a53d5885b21702521 as dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\FAC\\": ""
+        }
+    },
+	"repositories": [
+    	{
+        	"type": "vcs",
+        	"url" : "https://github.com/wepala/omnipay-first-atlantic-commerce.git"
+        }
+    ]
+}

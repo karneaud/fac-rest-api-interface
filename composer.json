@@ -1,7 +1,11 @@
 {
     "name": "unicorn/strong-lumen",
     "description": "Hardened lumen",
-    "keywords": ["framework", "laravel", "lumen"],
+    "keywords": [
+        "framework",
+        "laravel",
+        "lumen"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -12,7 +16,6 @@
         "phpseclib/phpseclib": "^2.0",
         "webpatser/laravel-uuid": "^3.0",
         "illuminate/mail": "^7.0",
-        "guzzlehttp/guzzle": "^6.5.4",
         "ext-json": "*",
         "doctrine/dbal": "^2.9",
         "intervention/image": "^2.5",
@@ -20,7 +23,12 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "predis/predis": "^1.1",
         "illuminate/redis": "^7.14",
-        "fruitcake/laravel-cors": "^2.0"
+        "fruitcake/laravel-cors": "^2.0",
+        "mbf5923/lumen-modules": "8.0.x-dev",
+        "symfony/http-client": "^5.2",
+        "omnipay/common": "^3.0",
+        "bitpiston/omnipay-first-atlantic-commerce": "dev-master#03a3e9d111fd29ba3ba5a94cf521b0c7feeb53ec",
+        "php-http/buzz-adapter": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",
@@ -32,7 +40,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Modules\\": "Modules/"
         }
     },
     "autoload-dev": {
@@ -50,5 +59,11 @@
     "prefer-stable": true,
     "config": {
         "optimize-autoloader": true
-    }
+    },
+	"repositories": [
+    	{
+        	"type": "vcs",
+        	"url" : "https://github.com/wepala/omnipay-first-atlantic-commerce.git"
+        }
+    ]
 }
