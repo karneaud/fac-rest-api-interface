@@ -62,10 +62,6 @@ class FACServiceProvider extends ServiceProvider
         		'prefix' => 'fac'
             ], function ($router) {
                 require __DIR__.'/../Routes/web.php';
-        		// register api routes
-        		$router->group(['prefix' => 'api', 'middleware' => ['auth:api', 'throttle', 'api-version:1' ]], function($router) {
-                	 require __DIR__.'/../Routes/api.v1.php';
-                });
             });
     }
 
