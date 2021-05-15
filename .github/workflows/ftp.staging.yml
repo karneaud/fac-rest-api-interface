@@ -14,8 +14,8 @@ jobs:
           WORKING_DIR: ${{ secrets.WORKING_DIR }}
         with:
           command: |
-            cd $WORKING_DIR
-            rm -rf vendor
+            cd /home/usnogoswcr1z9/public_html/clients/hello/fac
+            rm -rf ./vendor
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.USER_PRIVATE_KEY }}
@@ -39,7 +39,7 @@ jobs:
           args: zip -qq -r ./vendor.zip ./vendor
 
       - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           ftp-server: ${{ secrets.SERVER_IP }}
           ftp-username: ${{ secrets.FTP_USER }}
@@ -56,9 +56,9 @@ jobs:
           WORKING_DIR: ${{ secrets.WORKING_DIR }}
         with:
           command: |
-            cd $WORKING_DIR
+            cd /home/usnogoswcr1z9/public_html/clients/hello/fac
             unzip -qq ./vendor.zip
-            rm -f vendor.zip
+            rm -f ./vendor.zip
             php artisan config:clear
             php artisan view:clear
             php artisan route:cache
