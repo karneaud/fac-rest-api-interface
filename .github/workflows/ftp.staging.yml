@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Remove vendor directory
-        uses: fifsky/ssh-action@master
+        uses: garygrossgarten/github-action-ssh@release
         env:
           WORKING_DIR: ${{ secrets.WORKING_DIR }}
         with:
@@ -17,9 +17,9 @@ jobs:
             cd /home/usngoswcr1z9/public_html/clients/hello/fac
             [ -d ./vendor ] && rm -rf ./vendor
           host: ${{ secrets.SERVER_IP }}
-          user: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.USER_PRIVATE_KEY }}
-          pass: ${{ secrets.SSH_PASSPHRASE }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.USER_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           args: "-tt -vvv"
 
   deploy:
@@ -51,7 +51,7 @@ jobs:
     needs: deploy
     steps:
       - name: Run migrations and seeders, clear cache for views, config and routes
-        uses: fifsky/ssh-action@master
+        uses: garygrossgarten/github-action-ssh@release
         env:
           WORKING_DIR: ${{ secrets.WORKING_DIR }}
         with:
@@ -63,7 +63,7 @@ jobs:
             php artisan view:clear
             php artisan route:cache
           host: ${{ secrets.SERVER_IP }}
-          user:	${{ secrets.SSH_USER }}
-          key: ${{ secrets.USER_PRIVATE_KEY }}
-          pass: ${{ secrets.SSH_PASSPHRASE }}
+          username:	${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.USER_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           args: "-tt -vvv"
