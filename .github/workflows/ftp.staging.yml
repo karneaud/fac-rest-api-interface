@@ -14,8 +14,8 @@ jobs:
           command: |
             cd ${{ secrets.WORKING_DIR }}
             [ -d ./vendor ] && rm -rf ./vendor
-          host: https://${{ secrets.SERVER_IP }}
-          user: FTP_USER
+          host: ${{ secrets.SERVER_IP }}
+          user: ${{ secrets.SSH_USER }}
           key: ${{ secrets.USER_PRIVATE_KEY }}
 
   deploy:
@@ -39,7 +39,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
           ftp-server: ftp://${{ secrets.ADDRESS_URL }}/
-          ftp-username: FTP_USER
+          ftp-username: ${{ secrets.FTP_USER }}
           ftp-password: ${{ secrets.FTP_PASSWORD }}
 
   post-deploy:
@@ -56,6 +56,6 @@ jobs:
             php artisan config:clear
             php artisan view:clear
             php artisan route:cache
-          host: https://${{ secrets.SERVER_IP }}
-          user:	USER
+          host: ${{ secrets.SERVER_IP }}
+          user:	${{ secrets.SSH_USER }}
           key: ${{ secrets.USER_PRIVATE_KEY }}
