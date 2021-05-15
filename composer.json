@@ -57,7 +57,7 @@
             "php -r \"copy('.env.example', '.env');\""
         ],
     	"post-install-cmd" : [
-        	"[ $APP_ENV = 'heroku' ] && composer @herok-config || echo $APP_ENV"
+        	"[ $APP_ENV = 'heroku' ] && composer @heroku-config || echo $APP_ENV"
         ],
     	"heroku-config" : [
         	"composer require --no-scripts --prefer-dist --optimize-autoloader --no-interaction --dev laravel/tinker flipbox/lumen-generator",
