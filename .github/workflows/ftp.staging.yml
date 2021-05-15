@@ -32,7 +32,7 @@ jobs:
           fetch-depth: 2
 
       - name: Install Composer Dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist --no-dev
+        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --ignore-platform-reqs --no-progress --prefer-dist --no-dev
 
       - name: Create zipped vendor directory
         uses: montudor/action-zip@v0.1.0
