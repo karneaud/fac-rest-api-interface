@@ -19,4 +19,4 @@ jobs:
           branch: "release/staging"
           dynamicFiles: true
           procfile: "web: vendor/bin/heroku-php-apache2 public/"
-          buildpacks: ['https://github.com/heroku/heroku-buildpack-php.git']
+          buildpacks: '["https://github.com/heroku/heroku-buildpack-php.git"]'
