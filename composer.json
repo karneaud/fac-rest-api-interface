@@ -54,7 +54,7 @@
             "php -r \"copy('.env.example', '.env');\""
         ],
     	"post-install-cmd" : [
-        	"[[ $APP_ENV == 'heroku' ]] && composer require  --no-scripts laravel/tinker flipbox/lumen-generator & php -r \"file_put_contents('Procfile','web: vendor/bin/heroku-php-apache2 public/');\""
+        	"[ $APP_ENV == 'heroku' ] && composer install & php -r \"file_put_contents('Procfile','web: vendor/bin/heroku-php-apache2 public/');\""
         ]
     },
     "minimum-stability": "dev",
