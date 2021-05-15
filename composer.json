@@ -57,6 +57,7 @@
             "php -r \"copy('.env.example', '.env');\""
         ],
     	"post-install-cmd" : [
+        	"[ ! -e .env ] && composer post-root-package-install",
         	"[ $APP_ENV = 'heroku' ] && composer heroku-config || echo $APP_ENV"
         ],
     	"heroku-config" : [
