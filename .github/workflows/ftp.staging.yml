@@ -10,14 +10,17 @@ jobs:
     steps:
       - name: Remove vendor directory
         uses: fifsky/ssh-action@master
+        env:
+          WORKING_DIR: ${{ secrets.WORKING_DIR }}
         with:
           command: |
-            cd ${{ secrets.WORKING_DIR }}
+            cd $WORKING_DIR
             [ -d ./vendor ] && rm -rf ./vendor
           host: ${{ secrets.SERVER_IP }}
           user: ${{ secrets.SSH_USER }}
           key: ${{ secrets.USER_PRIVATE_KEY }}
           pass: ${{ secrets.SSH_PASSPHRASE }}
+          args: "-tt -vvv"
 
   deploy:
     name: Deploy
@@ -49,9 +52,11 @@ jobs:
     steps:
       - name: Run migrations and seeders, clear cache for views, config and routes
         uses: fifsky/ssh-action@master
+        env:
+          WORKING_DIR: ${{ secrets.WORKING_DIR }}
         with:
           command: |
-            cd ${{ secrets.WORKING_DIR }}
+            cd $WORKING_DIR
             unzip -qq ./vendor.zip
             rm -f vendor.zip
             php artisan config:clear
@@ -61,3 +66,4 @@ jobs:
           user:	${{ secrets.SSH_USER }}
           key: ${{ secrets.USER_PRIVATE_KEY }}
           pass: ${{ secrets.SSH_PASSPHRASE }}
+          args: "-tt -vvv"
