@@ -17,6 +17,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           user: ${{ secrets.SSH_USER }}
           key: ${{ secrets.USER_PRIVATE_KEY }}
+          pass: ${{ secrets.SSH_PASSPHRASE }}
 
   deploy:
     name: Deploy
@@ -59,3 +60,4 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           user:	${{ secrets.SSH_USER }}
           key: ${{ secrets.USER_PRIVATE_KEY }}
+          pass: ${{ secrets.SSH_PASSPHRASE }}
