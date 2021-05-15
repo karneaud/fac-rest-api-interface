@@ -1,4 +1,4 @@
-name: Deply to Heroku
+name: Deploy
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "fac-lumen-api"
           useforce: true
+          branch: "release/staging"
           dynamicFiles: true
           procfile: "web: vendor/bin/heroku-php-apache2 public/"
-          buildpacks: ['https://github.com/heroku/heroku-buildpack-php.git']
+          buildpacks: "['https://github.com/heroku/heroku-buildpack-php.git']"
