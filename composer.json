@@ -53,11 +53,8 @@
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ],
-    	"pre-install-cmd" : [
-        	"[ $APP_ENV -eq 'heroku' ] || composer require laravel/tinker flipbox/lumen-generator"
-        ],
     	"post-install-cmd" : [
-        	"[ $APP_ENV -eq 'heroku' ] || php -r \"file_put_contents('Procfile','web: vendor/bin/heroku-php-apache2 public/');\""
+        	"[ $APP_ENV = 'heroku' ] || composer require  --no-scripts laravel/tinker flipbox/lumen-generator & php -r \"file_put_contents('Procfile','web: vendor/bin/heroku-php-apache2 public/');\""
         ]
     },
     "minimum-stability": "dev",
