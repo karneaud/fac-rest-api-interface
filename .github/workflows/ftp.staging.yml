@@ -56,7 +56,7 @@ jobs:
           WORKING_DIR: ${{ secrets.WORKING_DIR }}
         with:
           command: |
-            cd $WORKING_DIR
+            cd /home/usngoswcr1z9/public_html/clients/hello/fac
             unzip -qq ./vendor.zip
             rm -f vendor.zip
             php artisan config:clear
