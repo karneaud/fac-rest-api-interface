@@ -17,5 +17,6 @@ jobs:
           heroku_app_name: "fac-lumen-api"
           useforce: true
           branch: "release/staging"
+          dynamicFiles: false
           procfile: "web: vendor/bin/heroku-php-apache2 public/"
           buildpacks: '["https://github.com/heroku/heroku-buildpack-php.git"]'
