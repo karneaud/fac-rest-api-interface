@@ -15,7 +15,7 @@ jobs:
         with:
           command: |
             cd /home/usngoswcr1z9/public_html/clients/hello/fac
-            if [ -d "./vendor" ]; then rm -Rf ./vendor; fi
+            rm -rf ./vendor
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.USER_PRIVATE_KEY }}
