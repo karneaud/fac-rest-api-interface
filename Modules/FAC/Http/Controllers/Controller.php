@@ -31,9 +31,10 @@ class Controller extends BaseController
 	/**
 	 * Global response function that returns response json
 	 * @param array $payload data to return as json
+	 * @param integer $code response status code. Defaults to 200
 	 * @return \Illuminate\Http\JsonResponse
 	 */ 
-	protected function returnResponse(array $payload ) : \Illuminate\Http\JsonResponse {
-    	return response()->json($payload);
+	protected function returnResponse(array $payload, int $code = 200) : \Illuminate\Http\JsonResponse {
+    	return response()->json($payload, $code);
     }
 }
