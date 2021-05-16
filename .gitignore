@@ -8,3 +8,5 @@ clover.xml
 tests/coverage
 tests/phpunit.junit.xml
 .phpunit.result.cache
+storage/api-docs
+storage/debugbar
