@@ -1,10 +1,4 @@
 <?php
-/**
- * @OA\Info(
- *     version="1.0",
- *     title="FAC Interface Platform endpoints"
- * )
- */
 namespace Modules\FAC\Http\Controllers\API\v1;
 
 use Illuminate\Http\Request;
@@ -23,49 +17,6 @@ class FACController extends BaseController
         				false,
         				env('FAC_TEST_MODE', false));
     }
-	/**
- 	 * @OA\Post(
-	 *     path="/fac/api/v1/purchase",
-	 *     description="make a purchase request",
-     *     operationId="purchase",
- 	 *	   @OA\RequestBody(
-     *		   description="post request parameters for purchase",
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/PurchaseRequest")
-     *         )
-     *     ),
-	 *     @OA\Response(
-	 * 		response="200",
-	 * 		description="Successful purchase",
-	 * 		@OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/SuccessPurchaseResponse")
-	 * 		)
-	 *    ),
-	 *     @OA\Response(
-	 * 		response="503",
-	 * 		description="Unsuccessful purchase",
-	 * 		@OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/FailPurchaseResponse")
-	 * 		)
-	 *    ),
-	 *     @OA\Response(
-	 * 		response="422",
-	 * 		description="Validation Error Response",
-	 * 		@OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     * 					type="object",
-     * 					title="Validation Error Response Object",
-     * 					@OA\Property( property="error", type="string", format="string", description="validation error message")
-     * 				)
-	 * 		)
-	 *    )
-	 * )
- 	 */
 	/** 
 	 * Sends a one pass transaction request to FAC
 	 * @method purchase

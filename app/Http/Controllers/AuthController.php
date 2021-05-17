@@ -27,7 +27,7 @@ class AuthController extends BaseController
 
         return response('Unauthorized.', 401);
     }
-
+		
     /**
      * post: /login/token.
      *
@@ -74,7 +74,7 @@ class AuthController extends BaseController
 
         return response()->json(['message' => 'Successfully logged out']);
     }
-
+	
     /**
      * Refresh a token.
      *
