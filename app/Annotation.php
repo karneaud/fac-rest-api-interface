@@ -1,9 +1,18 @@
 <?php
 
 /**
- * @OA\Info(
- *     version="1.0",
- *     title="Interface Platform endpoints"	
+ * @OA\Swagger(
+ *     basePath="/",
+ *     schemes={"https", "http"},
+ *     host=APP_URL,
+ *     @OA\Info(
+ *         version="1.0.0",
+ *         title="FAC SOAP Interface API Platform",
+ *         description="REST API interface for FAC SOAP Web Service",
+ *         @OA\Contact(
+ *             email="info@kendallarneaud.me"
+ *         ),
+ *     )
  * )
  * 
  * 
