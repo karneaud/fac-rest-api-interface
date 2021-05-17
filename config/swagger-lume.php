@@ -125,7 +125,13 @@ return [
                 'write:projects' => 'modify projects in your account',
             ]
         ],*/
-
+        'bearer' => [
+            'type' => 'http',
+            'description' => 'Authorization token obtained from logging in.',
+            'name' => 'Authorization',
+            'in' => 'header',
+            'scheme' => 'bearer'
+        ],
         /* Open API 3.0 support
         'passport' => [ // Unique name of security
             'type' => 'oauth2', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
