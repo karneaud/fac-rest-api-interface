@@ -43,7 +43,8 @@
         "psr-4": {
             "App\\": "app/",
             "Modules\\": "Modules/"
-        }
+        },
+    	"files":[ "app/Helpers/helpers.php" ]
     },
     "autoload-dev": {
         "classmap": [
@@ -64,11 +65,12 @@
         ],
     	"heroku-config" : [
         	"composer require --no-scripts --prefer-dist --optimize-autoloader --no-interaction --dev laravel/tinker flipbox/lumen-generator",
-        	"php artisan key:generate",
-        	"php artisan jwt:secret",
         	"export APP_ADMIN_URL=$APP_URL",
         	"export API_URL=$APP_URL",
-        	"export PASSWORD_RESET_URL=$APP_URL/password-reset"
+        	"export PASSWORD_RESET_URL=$APP_URL/password-reset",
+        	"php artisan key:generate",
+        	"php artisan jwt:secret",
+        	"php artisan swagger-lume:generate"
         ]
     },
     "minimum-stability": "dev",
