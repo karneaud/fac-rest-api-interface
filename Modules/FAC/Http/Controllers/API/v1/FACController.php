@@ -1,5 +1,4 @@
 <?php
-
 namespace Modules\FAC\Http\Controllers\API\v1;
 
 use Illuminate\Http\Request;
@@ -18,17 +17,18 @@ class FACController extends BaseController
         				false,
         				env('FAC_TEST_MODE', false));
     }
-	/**
-	 * Will handle authorize/ capture scenarios
+	/** 
+	 * Sends a one pass transaction request to FAC
 	 * @method purchase
-	 * @param Illuminate\Http\Request $request the request parameters input
-	 * @return \Illuminate\Http\JsonResponse
+	 * @params Illuminate\Http\Request $request POST request inputs
+	 * @return Illuminate\Http\JsonResponse $response response content as application/json
+	 * @throws Illuminate\Validation\ValidationException
 	 */ 
 	public function purchase(Request $request) {
     	
     	$this->validateRequest($request, new Authorize);
     	return $this->returnResponse(
-        	$this->service->purchase(
+        	$response = ($this->service->purchase(
             	array_merge(
                 	$request->only('card','amount','currency'), 
                 	['transactionId' => $request->input('order_id'),
@@ -40,7 +40,8 @@ class FACController extends BaseController
         				]
                    	]
                 		)
-            	)
+            	)),
+        	array_key_exists('error', $response)? 503 : 200
         );
     }
 }

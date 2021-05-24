@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__. "/../app/Helpers/helpers.php";
 require_once __DIR__.'/../vendor/autoload.php';
 
 try {
@@ -105,15 +105,19 @@ $app->register(\Illuminate\Auth\Passwords\PasswordResetServiceProvider::class);
 
 // File System
 $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
-$app->configure('filesystems');
+
 
 // Redis
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
 
-$app->configure('cors');
+$app->register(\SwaggerLume\ServiceProvider::class);
 
+$app->configure('filesystems');
+$app->configure('cors');
+$app->configure('swagger-lume');
 $app->configure('services');
 $app->configure('mail');
+
 $app->alias('mailer', Illuminate\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);

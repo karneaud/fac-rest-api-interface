@@ -20,7 +20,7 @@ class ApiVersion
      */
     public function handle($request, Closure $next, $guard)
     {
-        config(['fac.version' => $guard ]);
+        config(['api-version' => $guard ]);
         return $next($request);
     }
 }
