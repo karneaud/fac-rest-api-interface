@@ -18,5 +18,7 @@ $router->group(['prefix' => 'v1', 'namespace' => 'API\v1' ], function ($router) 
    		return $router->app->version() . ' Module:FAC API Route version 1';
    });
 
-	$router->post('/purchase', 'FACController@purchase' );
+   $router->post('/purchase', 'FACController@purchase' );
+   $router->post('/authorize', 'FACController@authorizeFAC' );
+   $router->post('/refund', 'FACController@refund' );
 });
