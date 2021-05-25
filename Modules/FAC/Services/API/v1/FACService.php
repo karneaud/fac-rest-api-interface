@@ -24,7 +24,7 @@ class FACService {
 	 * @return array An array response or error description
 	 */
 	public function purchase(array $params) {
-    	return $this->__getResponse($this->gateway->purchase($params))
+    	return $this->__getResponse($this->gateway->purchase($params));
     }
 	/**
 	 * Sends authorize requests to FAC SOAP
@@ -51,12 +51,21 @@ class FACService {
 	 * @return array An array response or error description
 	 */
     public function authorizeThenCapture(array $params) {
-    	$response = $this->__getResponse($this->gateway->authorize($params));
+    	$response = $this->authorize($params);
     	if(!$response['success']) return $response;
     
-       	$response = array_merge($response, $this->__getResponse(gateway->capture(array_only($params, ['amount','transactionId'])));
+       	$response = array_merge($response, $this->capture(array_only($params, ['amount','transactionId'])));
     	return $response;
-    }                      
+    }                    
+	/**
+	 * Sends refund requests to FAC SOAP
+	 * @method refund
+	 * @param array $params the necessary parameters to refund a previous capture transaction 
+	 * @return array An array response or error description
+	 */
+	public function refund(array $params) {
+    	return $this->__getResponse($this->gateway->refund($params));
+    }                        
 	/**
 	 * sends FAC request and parses response
 	 * @method __getResponse
@@ -65,21 +74,24 @@ class FACService {
 	 */ 
 	protected function __getResponse($request) : array {
     	try {
+        	
         	$response = $request->send();
-    		if(!$response->isSuccessful()) throw InvalidResponseException("Invalid purchase {$response->getMessage()}", $response->getReasonCode());
+    		if(!$response->isSuccessful()) throw new InvalidResponseException("Invalid purchase {$response->getMessage()}", $response->getReasonCode());
         
         	$response= [ 
             		  'success' => true,
                       'order_id' => $response->getTransactionId(),
                       'transaction_id' => $response->getTransactionReference(),
-                      'token' => $response->getCardReference()
+                      'token' => $response->getCardReference(),
+            		  'code' => $response->getCode(),
+            		  'message' => $response->getMessage()
                     ];
         } catch(\Exception $e) {
         	 $response =  
             	    [ 'success' => false,
                       'message' => $e->getMessage(),
                       'code' => $e->getCode(),
-					  'order_id' => $params['transactionId'],
+					  'order_id' => $request->getTransactionId(),
                       'transaction_id' =>  isset( $response )? $response->getTransactionReference() : null
                     ];
         }
