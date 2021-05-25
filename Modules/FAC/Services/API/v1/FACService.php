@@ -3,6 +3,7 @@
 namespace Modules\FAC\Services\API\v1;
 
 use Omnipay\Omnipay;
+use Omnipay\Common\Exception\InvalidResponseException;
 
 class FACService {
 	
@@ -23,26 +24,66 @@ class FACService {
 	 * @return array An array response or error description
 	 */
 	public function purchase(array $params) {
-    	$response = $this->gateway->purchase($params)->send();
-    	if(!$response->isSuccessful()) 
-           $response =  
-            	    [ 'success' => false,
-                      'message' => $response->getMessage(),
-                      'code' => $response->getReasonCode(),
-					  'order_id' => $response->getTransactionId(),
-                      'transaction_id' => $response->getTransactionReference(),
-                    ];
-       else $response= [ 
+    	return $this->__getResponse($this->gateway->purchase($params))
+    }
+	/**
+	 * Sends authorize requests to FAC SOAP
+	 * @method authorize
+	 * @param array $params the necessary parameters to authorize credit card 
+	 * @return array An array response or error description
+	 */
+	public function authorize(array $params) {
+    	return $this->__getResponse($this->gateway->authorize($params));
+    }                        
+    /**
+	 * Sends capture requests of previous authorized request to FAC SOAP
+	 * @method capture
+	 * @param array $params the necessary parameters to process order transaction of previous authorized request 
+	 * @return array An array response or error description
+	 */                       
+    public function capture(array $params) {
+    	return $this->__getResponse($this->gateway->capture($params));
+    }  
+    /**
+	 * Sends authorize and then capture requests to FAC SOAP
+	 * @method authorizeThenCapture
+	 * @param array $params the necessary parameters to authorize credit card and then process order transaction
+	 * @return array An array response or error description
+	 */
+    public function authorizeThenCapture(array $params) {
+    	$response = $this->__getResponse($this->gateway->authorize($params));
+    	if(!$response['success']) return $response;
+    
+       	$response = array_merge($response, $this->__getResponse(gateway->capture(array_only($params, ['amount','transactionId'])));
+    	return $response;
+    }                      
+	/**
+	 * sends FAC request and parses response
+	 * @method __getResponse
+	 * @param Omnipay\Common\Message\MessageInterface $request Request class object to perform transactional request
+	 * @return array Array Parsed response parameters
+	 */ 
+	protected function __getResponse($request) : array {
+    	try {
+        	$response = $request->send();
+    		if(!$response->isSuccessful()) throw InvalidResponseException("Invalid purchase {$response->getMessage()}", $response->getReasonCode());
+        
+        	$response= [ 
             		  'success' => true,
                       'order_id' => $response->getTransactionId(),
                       'transaction_id' => $response->getTransactionReference(),
                       'token' => $response->getCardReference()
                     ];
+        } catch(\Exception $e) {
+        	 $response =  
+            	    [ 'success' => false,
+                      'message' => $e->getMessage(),
+                      'code' => $e->getCode(),
+					  'order_id' => $params['transactionId'],
+                      'transaction_id' =>  isset( $response )? $response->getTransactionReference() : null
+                    ];
+        }
     
     	return $response;
-    }
-
-	public function refund(Request $request) {
-    	
     }
 }
