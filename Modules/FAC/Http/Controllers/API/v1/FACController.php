@@ -52,12 +52,12 @@ class FACController extends BaseController
 	
 	/** 
 	 * Sends a authorize only request to FAC
-	 * @method authorize
+	 * @method authorizeFAC
 	 * @params Illuminate\Http\Request $request POST request inputs
 	 * @return Illuminate\Http\JsonResponse $response response content as application/json
 	 * @throws Illuminate\Validation\ValidationException
 	 */ 
-	public function authorize(Request $request) {
+	public function authorizeFAC(Request $request) {
     	
     	$this->validateRequest($request, new Authorize);
     	return $this->returnResponse(
@@ -75,6 +75,30 @@ class FACController extends BaseController
                    	]
                 		)
             	)),
+        	!$response['success']? 503 : 200
+        );
+    }
+	
+	/** 
+	 * Sends a refund request to FAC
+	 * @method refund
+	 * @params Illuminate\Http\Request $request POST request inputs
+	 * @return Illuminate\Http\JsonResponse $response response content as application/json
+	 * @throws Illuminate\Validation\ValidationException
+	 */ 
+	public function refund(Request $request) {
+    	$this->validate($request, [
+        	'order_id' => 'required|string',
+        	'amount' => 'required|numeric'
+        ]);
+    
+    	return $this->returnResponse(
+        	$response = $this->service->refund(
+                	[
+                      'transactionId' => $request->input('order_id'),
+                      'amount' => $request->input('amount') 	
+                   	]
+            	),
         	!$response['success']? 503 : 200
         );
     }
