@@ -8,6 +8,9 @@ use Modules\FAC\Http\Controllers\Controller as BaseController;
 
 class FACController extends BaseController
 {
+	/**
+	 * @var Modules\FAC\Services\API\v1\FACService $service The FAC service class
+	 */
 	protected $service;
 
 	public function __construct() {
@@ -37,11 +40,43 @@ class FACController extends BaseController
         					'expiryMonth' => $request->input('expiry_month'), 
         					'expiryYear' => $request->input('expiry_year'),
         					'cvv' => $request->input('cvv'),
-        				]
+        				],
+                     	'createCard' => true
                    	]
                 		)
             	)),
-        	array_key_exists('error', $response)? 503 : 200
+        	
+        	!$response['success']? 503 : 200
         );
     }
+	
+	/** 
+	 * Sends a authorize only request to FAC
+	 * @method authorize
+	 * @params Illuminate\Http\Request $request POST request inputs
+	 * @return Illuminate\Http\JsonResponse $response response content as application/json
+	 * @throws Illuminate\Validation\ValidationException
+	 */ 
+	public function authorize(Request $request) {
+    	
+    	$this->validateRequest($request, new Authorize);
+    	return $this->returnResponse(
+        	$response = ($this->service->authorize(
+            	array_merge(
+                	$request->only('card','amount','currency'), 
+                	['transactionId' => $request->input('order_id'),
+                     	'card' => [
+        					'number' => $request->input('card'), 
+        					'expiryMonth' => $request->input('expiry_month'), 
+        					'expiryYear' => $request->input('expiry_year'),
+        					'cvv' => $request->input('cvv'),
+        				],
+                     	'createCard' => true
+                   	]
+                		)
+            	)),
+        	!$response['success']? 503 : 200
+        );
+    }
+	
 }
