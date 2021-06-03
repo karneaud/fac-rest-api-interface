@@ -74,15 +74,14 @@ class FACService {
 	 */ 
 	protected function __getResponse($request) : array {
     	try {
-        	
         	$response = $request->send();
-    		if(!$response->isSuccessful()) throw new InvalidResponseException("Invalid purchase {$response->getMessage()}", $response->getReasonCode());
+        	if(!$response->isSuccessful()) throw new InvalidResponseException("Invalid purchase {$response->getMessage()}", $response->getReasonCode());
         
         	$response= [ 
             		  'success' => true,
                       'order_id' => $response->getTransactionId(),
                       'transaction_id' => $response->getTransactionReference(),
-                      'token' => $response->getCardReference(),
+                      'token' => array_key_exists('TokenizedPAN', ($data = $response->getData()) )? $data['TokenizedPAN'] : null,
             		  'code' => $response->getCode(),
             		  'message' => $response->getMessage()
                     ];
