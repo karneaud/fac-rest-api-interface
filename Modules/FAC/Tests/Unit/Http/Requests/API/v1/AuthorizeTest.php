@@ -39,4 +39,37 @@ class AuthorizeTest extends TestCase
 
     	$this->assertTrue($validator->passes(), "Validation failed " . print_r($validator->errors(), true ));
     }
+
+	/**
+     * test valid cc validation 
+     *
+     * @return void
+     */
+    public function testValidCC()
+    {
+        $request = new Authorize();
+    	$validator = Validator::make($this->getAuthorizeRequestData([
+        	'currency' => 'TTD',
+        	'card' => 12345678901234,
+        	]), $request->rules());
+
+    	$this->assertTrue($validator->passes(), "Validation failed " . print_r($validator->errors(), true ));
+    }
+
+	/**
+     * test valid token validation 
+     *
+     * @return void
+     */
+    public function testValidTokenPan()
+    {
+        $request = new Authorize();
+    	$validator = Validator::make($this->getAuthorizeRequestData([
+        	'currency' => 'TTD',
+        	'card' => '424242_04XOK4242',
+        	'tokenized' => true
+        	]), $request->rules());
+
+    	$this->assertTrue($validator->passes(), "Validation failed " . print_r($validator->errors(), true ));
+    }
 }
