@@ -27,7 +27,7 @@
         "mbf5923/lumen-modules": "8.0.x-dev",
         "symfony/http-client": "^5.2",
         "omnipay/common": "^3.0",
-        "bitpiston/omnipay-first-atlantic-commerce": "dev-master#03a3e9d111fd29ba3ba5a94cf521b0c7feeb53ec",
+        "bitpiston/omnipay-first-atlantic-commerce": "dev-master#ddd014233b9b9f29851e9f6a53d5885b21702521 as dev-master",
         "php-http/buzz-adapter": "^1.0",
         "zircote/swagger-php": "^3.1",
         "darkaonline/swagger-lume": "^8.0"
@@ -52,24 +52,24 @@
         ]
     },
     "scripts": {
-    	"compile": [
-        	"php -r \"file_put_contents('Procfile','web: vendor/bin/heroku-php-apache2 public/');\""
+        "compile": [
+            "php -r \"file_put_contents('Procfile','web: vendor/bin/heroku-php-apache2 public/');\""
         ],
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ],
-    	"post-install-cmd" : [
-        	"[ ! -e .env ] && composer run-script post-root-package-install",
-        	"[ $APP_ENV = 'heroku' ] && composer run-script heroku-config || echo $APP_ENV"
+        "post-install-cmd": [
+            "[ ! -e .env ] && composer run-script post-root-package-install",
+            "[ $APP_ENV = 'heroku' ] && composer run-script heroku-config || echo $APP_ENV"
         ],
-    	"heroku-config" : [
-        	"composer require --no-scripts --prefer-dist --optimize-autoloader --no-interaction --dev laravel/tinker flipbox/lumen-generator",
-        	"export APP_ADMIN_URL=$APP_URL",
-        	"export API_URL=$APP_URL",
-        	"export PASSWORD_RESET_URL=$APP_URL/password-reset",
-        	"php artisan key:generate",
-        	"php artisan jwt:secret",
-        	"php artisan swagger-lume:generate"
+        "heroku-config": [
+            "composer require --no-scripts --prefer-dist --optimize-autoloader --no-interaction --dev laravel/tinker flipbox/lumen-generator",
+            "export APP_ADMIN_URL=$APP_URL",
+            "export API_URL=$APP_URL",
+            "export PASSWORD_RESET_URL=$APP_URL/password-reset",
+            "php artisan key:generate",
+            "php artisan jwt:secret",
+            "php artisan swagger-lume:generate"
         ]
     },
     "minimum-stability": "dev",
@@ -77,10 +77,10 @@
     "config": {
         "optimize-autoloader": true
     },
-	"repositories": [
-    	{
-        	"type": "vcs",
-        	"url" : "https://github.com/wepala/omnipay-first-atlantic-commerce.git"
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/wepala/omnipay-first-atlantic-commerce.git"
         }
     ]
 }

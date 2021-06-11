@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43e037cab3b0f076788e7756f8ae1743",
+    "content-hash": "217f9e7f9a48909dfcda5b1250661af0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -158,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wepala/omnipay-first-atlantic-commerce.git",
-                "reference": "03a3e9d111fd29ba3ba5a94cf521b0c7feeb53ec"
+                "reference": "ddd014233b9b9f29851e9f6a53d5885b21702521"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wepala/omnipay-first-atlantic-commerce/zipball/03a3e9d111fd29ba3ba5a94cf521b0c7feeb53ec",
-                "reference": "03a3e9d111fd29ba3ba5a94cf521b0c7feeb53ec",
+                "url": "https://api.github.com/repos/wepala/omnipay-first-atlantic-commerce/zipball/ddd014233b9b9f29851e9f6a53d5885b21702521",
+                "reference": "ddd014233b9b9f29851e9f6a53d5885b21702521",
                 "shasum": ""
             },
             "require": {
@@ -10397,7 +10397,14 @@
             "time": "2021-03-09T10:59:23+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "bitpiston/omnipay-first-atlantic-commerce",
+            "version": "9999999-dev",
+            "alias": "dev-master",
+            "alias_normalized": "dev-master"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "mbf5923/lumen-modules": 20,
