@@ -132,7 +132,8 @@ if(env('APP_ENV') != 'production') {
 
 // activate Lumen modules provider
 $app->register(Mbf\Modules\LumenModulesServiceProvider::class);
-$app->register(Modules\FAC\Providers\FACServiceProvider::class);
+$app->register(Modules\FAC\Providers\ServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -143,7 +144,6 @@ $app->register(Modules\FAC\Providers\FACServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
-
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
