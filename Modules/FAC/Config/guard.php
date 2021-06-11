@@ -6,7 +6,7 @@ return array_merge($auth['guards'], ['key' =>
                                      	[
                                         	'driver' => 'token',
                                         	'provider' => 'users',
-                                        	'input_key' => 'key',
+                                        	'input_key' => null,
                                         	'storage_key' => 'api_key',
                                         	'hash' => false
                                         ]
