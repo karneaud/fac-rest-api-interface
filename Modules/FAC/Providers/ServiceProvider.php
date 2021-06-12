@@ -58,7 +58,7 @@ class ServiceProvider extends BaseServiceProvider
     }
 
 	protected function registerRoutes() {
-    	$this->app->routeMiddleware(['api-version' => \Modules\FAC\Http\Middleware\ApiVersion::class ]);
+    	$this->app->routeMiddleware(['api-version' => \Modules\FAC\Http\Middleware\ApiVersion::class, 'verify' => \Modules\FAC\Http\Middleware\VerifyRequest::class ]);
     	$this->app->router->group([
                 'namespace' => "Modules\\".$this->moduleName."\Http\Controllers",
         		'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors'],
