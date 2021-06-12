@@ -17,7 +17,7 @@
         }
     },
 	"require": {
-    	"bitpiston/omnipay-first-atlantic-commerce":"dev-master#ddd014233b9b9f29851e9f6a53d5885b21702521 as dev-master"
+    	"bitpiston/omnipay-first-atlantic-commerce":"dev-master#e72cd44f798e88289b338c59fc829b966ccec006 as dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -27,7 +27,7 @@
 	"repositories": [
     	{
         	"type": "vcs",
-        	"url" : "https://github.com/wepala/omnipay-first-atlantic-commerce.git"
+        	"url" : "https://github.com/karneaud/omnipay-first-atlantic-commerce.git"
         }
     ]
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "217f9e7f9a48909dfcda5b1250661af0",
+    "content-hash": "2a7164e343078212b222d5dbfbb4e5ad",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -157,13 +157,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wepala/omnipay-first-atlantic-commerce.git",
-                "reference": "ddd014233b9b9f29851e9f6a53d5885b21702521"
+                "url": "https://github.com/karneaud/omnipay-first-atlantic-commerce.git",
+                "reference": "d750afc74bacaf58abceda7e0c012f4f2caaf8c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wepala/omnipay-first-atlantic-commerce/zipball/ddd014233b9b9f29851e9f6a53d5885b21702521",
-                "reference": "ddd014233b9b9f29851e9f6a53d5885b21702521",
+                "url": "https://api.github.com/repos/karneaud/omnipay-first-atlantic-commerce/zipball/d750afc74bacaf58abceda7e0c012f4f2caaf8c7",
+                "reference": "d750afc74bacaf58abceda7e0c012f4f2caaf8c7",
                 "shasum": ""
             },
             "require": {
@@ -199,10 +199,9 @@
                 "payment processing"
             ],
             "support": {
-                "source": "https://github.com/wepala/omnipay-first-atlantic-commerce/tree/master",
-                "issues": "https://github.com/wepala/omnipay-first-atlantic-commerce/issues"
+                "source": "https://github.com/karneaud/omnipay-first-atlantic-commerce/tree/master"
             },
-            "time": "2019-04-08T18:18:26+00:00"
+            "time": "2021-06-03T15:24:37+00:00"
         },
         {
             "name": "brick/math",

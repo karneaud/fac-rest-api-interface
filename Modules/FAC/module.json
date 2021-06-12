@@ -9,6 +9,5 @@
     ],
     "aliases": {},
     "requires": [
-    	"bitpiston/omnipay-first-atlantic-commerce"
     ]
 }
