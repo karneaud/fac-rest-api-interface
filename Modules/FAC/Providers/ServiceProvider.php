@@ -2,7 +2,6 @@
 
 namespace Modules\FAC\Providers;
 
-use Modules\FAC\Http\Middleware\ApiVersion;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -37,7 +36,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-
+		$this->commands(\Modules\FAC\Console\RegisterUserCommand::class);
     }
 
     /**
@@ -59,7 +58,7 @@ class ServiceProvider extends BaseServiceProvider
     }
 
 	protected function registerRoutes() {
-    	$this->app->routeMiddleware(['api-version' => ApiVersion::class ]);
+    	$this->app->routeMiddleware(['api-version' => \Modules\FAC\Http\Middleware\ApiVersion::class ]);
     	$this->app->router->group([
                 'namespace' => "Modules\\".$this->moduleName."\Http\Controllers",
         		'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors'],
