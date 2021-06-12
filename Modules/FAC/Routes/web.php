@@ -16,6 +16,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version() . ' Module:FAC';
 });
 // register api routes
-$router->group(['prefix' => 'api', 'middleware' => ['auth:api', 'throttle', 'api-version:1' ]], function($router) {
-   require __DIR__.'/../Routes/api.v1.php';
+$router->group(['prefix' => 'api', 'middleware' => ['auth:key', 'verify:key', 'api-version:1' ]], function($router) {
+	require __DIR__.'/../Routes/api.v1.php';
 });
