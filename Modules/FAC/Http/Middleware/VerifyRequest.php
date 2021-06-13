@@ -41,13 +41,13 @@ class VerifyRequest
      */
     public function handle($request, Closure $next, $guard = null)
     {
-    	if(!$request->hasHeader('X-Signature') || !($user = $this->auth->guard($guard)->user()))
+    	if(!$request->hasHeader('Signature') || !($user = $this->auth->guard($guard)->user()))
         	return response('Unauthorized', 401);
-    	
+    	$amount = number_format ($request->input('amount'), 2, ".","");
     	try {
-        	if(sha1("{$request->input('order_id')}|{$user->api_key}|{$request->input('amount')}") != $request->header('X-Signature')) throw new \Exception('Unverified request!');
+        	if(hash('sha256', "{$request->input('order_id')}|{$user->api_key}|$amount") != $request->header('Signature')) throw new \Exception('Unverified request!');
         } catch(\Exception $e) {
-        	Log::alert("{$e->getMessage()}  for KEY #{$user->api_key} with request {$request->input('order_id')} {$request->input('amount')} "  );
+        	Log::alert("{$e->getMessage()}  for KEY #{$user->api_key} with request {$request->input('order_id')} {$amount} "  );
         	return response($e->getMessage(), 401);
         }
     
