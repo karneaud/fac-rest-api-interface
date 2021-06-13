@@ -81,7 +81,7 @@ class FACService {
             		  'success' => true,
                       'order_id' => $response->getTransactionId(),
                       'transaction_id' => $response->getTransactionReference(),
-                      'token' => $response->getCardReference(),
+                      'token' => $response->getCardReference() ?? null,
             		  'code' => $response->getCode(),
             		  'message' => $response->getMessage()
                     ];
