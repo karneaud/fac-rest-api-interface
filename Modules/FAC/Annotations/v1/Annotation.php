@@ -15,6 +15,15 @@
  * 		),
  *		description="make a purchase request",
  *     	operationId="purchase",
+ *		@OA\Parameter(
+ *         name="Signature",
+ *         description="A SHA256 hash signature header to verify request. The string components to hash are order_id|api_key|amount separated by pipe character (|) ",
+ *         required=true,
+ * 		   in="header",
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
  *	   	@OA\RequestBody(
  *		   description="post request parameters for purchase",
  *         required=true,
@@ -58,7 +67,7 @@
  * 				)
  * 		)
  *    ),
- * 	  security={{"bearer": {} }}
+ * 	  security={"auth", {"bearer": {} }}
  * )
  * 
  * @OA\Post(
@@ -70,6 +79,15 @@
  * 		),
  *		description="send a refund request",
  *     	operationId="refund",
+ *		@OA\Parameter(
+ *         name="Signature",
+ *         description="A SHA256 hash signature header to verify request. The string components to hash are order_id|api_key|amount separated by pipe character (|) ",
+ *         required=true,
+ * 		   in="header",
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
  *	   	@OA\RequestBody(
  *		   description="post request parameters for purchase",
  *         required=true,
@@ -113,7 +131,7 @@
  * 				)
  * 		)
  *    ),
- * 	  security={{"bearer": {} }}
+ * 	  security={ {"bearer": {} } }
  * )
  *
  * @OA\Schema(
@@ -296,4 +314,5 @@
  *     		description="FAC Error reason code if the process was unsuccessful"
  * 	   )
  * )
+ *
  */
