@@ -19,7 +19,6 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
-        key: ${{ secrets.SSHKEY }}
         password: ${{ secrets.PASSWORD }}
         source: "."
         target: "/home/andel/app"
@@ -29,6 +28,5 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
-        key: ${{ secrets.SSHKEY }}
         password: ${{ secrets.PASSWORD }}
         script: "cd /home/andel/app && composer install --no-dev --optimize-autoloader"
