@@ -13,7 +13,7 @@
 |
 */
 $router->get('/', function () use ($router) {
-    return $router->app->version() . ' Module:FAC';
+    return print sprintf("%s v%d Module:FAC", env('APP_NAME'), env('APP_VERSION') );
 });
 // register api routes
 $router->group(['prefix' => 'api', 'middleware' => ['auth:key', 'verify:key', 'api-version:1' ]], function($router) {
