@@ -2,8 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - release/beta
+    branches: [release/beta]
 
 jobs:
   build:
