@@ -27,6 +27,15 @@ class FACService {
     	return $this->__getResponse($this->gateway->purchase($params));
     }
 	/**
+	 * Sends tokenize requests to FAC SOAP
+	 * @method tokenize
+	 * @param array $params the necessary parameters to make purchase 
+	 * @return array An array response or error description
+	 */
+	public function tokenize(array $params) {
+    	return $this->__getResponse($this->gateway->createCard($params));
+    }
+	/**
 	 * Sends authorize requests to FAC SOAP
 	 * @method authorize
 	 * @param array $params the necessary parameters to authorize credit card 
@@ -74,19 +83,23 @@ class FACService {
 	 */ 
 	protected function __getResponse($request) : array {
     	try {
-        	$response = $request->send();
-        	if(!$response->isSuccessful()) throw new InvalidResponseException("Invalid purchase {$response->getMessage()}", $response->getReasonCode());
         	
-        	$response= [ 
+        	$response = $request->send();
+        	if(!$response->isSuccessful()) throw new InvalidResponseException("Invalid response {$response->getMessage()}", $response->getReasonCode());
+        	
+        	$return = [ 
             		  'success' => true,
                       'order_id' => $response->getTransactionId(),
                       'transaction_id' => $response->getTransactionReference(),
-                      'token' => $response->getCardReference() ?? null,
             		  'code' => $response->getCode(),
             		  'message' => $response->getMessage()
                     ];
+        	
+        	if(method_exists($response,'getCardReference')) 
+            	$return['token'] =  $response->getCardReference() ?? null ;
+        	
         } catch(\Exception $e) {
-        	 $response =  
+        		$return =  
             	    [ 'success' => false,
                       'message' => $e->getMessage(),
                       'code' => $e->getCode(),
@@ -95,6 +108,6 @@ class FACService {
                     ];
         }
     
-    	return $response;
+    	return $return;
     }
 }
