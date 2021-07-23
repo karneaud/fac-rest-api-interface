@@ -22,11 +22,7 @@ class Tokenize extends FormRequest
         	'cvv' => 'required|digits:3', 
         	'expiry_month' => 'required|integer|digits_between:1,2', 
         	'expiry_year' => 'required|numeric|digits:4',
-        	'card_holder'=> ['required','min:5',function ($attribute, $value, $fail) {
-            	if (!((bool) preg_match('/[a-zA-z\-\ ]/', $value, $match))) {
-                	$fail($attribute.' is invalid.');
-            	}
-        	}]
+        	'card_holder'=> 'required|min:5|alpha_num'
         ];
     }
 
