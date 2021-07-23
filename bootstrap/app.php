@@ -125,7 +125,6 @@ $app->alias('mail.manager', Illuminate\Contracts\Mail\Factory::class);
 $app->make('queue');
 // if not in production at extra stuff
 if(env('APP_ENV') != 'production') { 
-
 	$app->configure('swagger-lume');
  	$app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class); 
 	$app->register(\SwaggerLume\ServiceProvider::class);
@@ -148,9 +147,11 @@ $app->register(Modules\FAC\Providers\ServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    //require __DIR__.'/../routes/web.php';
-    //require __DIR__.'/../routes/routes.admin.php';
-    //require __DIR__.'/../routes/routes.upload.php';
+    if(env('APP_ENV') != 'production') { 
+    	require __DIR__.'/../routes/web.php';
+    	require __DIR__.'/../routes/routes.admin.php';
+    	require __DIR__.'/../routes/routes.upload.php';
+    }
 });
 
 return $app;
