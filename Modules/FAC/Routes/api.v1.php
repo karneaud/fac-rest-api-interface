@@ -21,4 +21,6 @@ $router->group(['prefix' => 'v1', 'namespace' => 'API\v1' ], function ($router) 
    $router->post('/purchase', 'FACController@purchase' );
    $router->post('/authorize', 'FACController@authorizeFAC' );
    $router->post('/refund', 'FACController@refund' );
+   $router->post('/capture', 'FACController@capture' );
+   $router->post('/tokenize', 'FACController@tokenize' );
 });
