@@ -29,7 +29,7 @@
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/PurchaseRequest")
+ *             @OA\Schema(ref="#/components/schemas/AuthorizeRequest")
  *         )
  *    	 ),
  *     	@OA\Response(
@@ -41,7 +41,7 @@
  * 			)
  *    	),
  *      @OA\Response(
- * 			response="503",
+ * 			response="400",
  * 			description="Unsuccessful purchase",
  * 			@OA\MediaType(
  *             mediaType="application/json",
@@ -50,7 +50,71 @@
  *     ),
  *     @OA\Response(
  * 			response="401",
- * 			description="Unauthorized action",
+ * 			description="Unauthorized action | Unverified request",
+ * 			@OA\MediaType(
+ *             mediaType="text/html"
+ * 			)
+ *     ),
+ *     @OA\Response(
+ * 		response="422",
+ * 		description="Validation Error Response",
+ * 		@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ * 					type="object",
+ * 					title="Validation Error Response Object",
+ * 					@OA\Property( property="error", type="string", format="string", description="validation error message")
+ * 				)
+ * 		)
+ *    ),
+ * 	  security={"auth", {"bearer": {} }}
+ * ) 
+ *
+ * @OA\Post(
+ *		path="/v1/authorize",
+ *		tags={"FAC"},
+ * 		@OA\Server(
+ * 			url="/fac/api",
+ * 			description="FAC module endpoints for the platform"
+ * 		),
+ *		description="Makes a request to authorize the transaction",
+ *     	operationId="authorize",
+ *		@OA\Parameter(
+ *         name="Signature",
+ *         description="A SHA256 hash signature header to verify request. The string components to hash are order_id|api_key|amount separated by pipe character (|) ",
+ *         required=true,
+ * 		   in="header",
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
+ *	   	@OA\RequestBody(
+ *		   description="post request parameters to authorize",
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/AuthorizeRequest")
+ *         )
+ *    	 ),
+ *     	@OA\Response(
+ * 			response="200",
+ * 			description="Successful purchase",
+ * 			@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/SuccessResponse")
+ * 			)
+ *    	),
+ *      @OA\Response(
+ * 			response="400",
+ * 			description="Unsuccessful purchase",
+ * 			@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/FailResponse")
+ * 			)
+ *     ),
+ *     @OA\Response(
+ * 			response="401",
+ * 			description="Unauthorized action | Unverified request",
  * 			@OA\MediaType(
  *             mediaType="text/html"
  * 			)
@@ -89,11 +153,11 @@
  *         )
  *     ),
  *	   	@OA\RequestBody(
- *		   description="post request parameters for purchase",
+ *		   description="post request parameters for refund",
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
- *             @OA\Schema(ref="#/components/schemas/RefundRequest")
+ *             @OA\Schema(ref="#/components/schemas/ModificationRequest")
  *         )
  *    	 ),
  *     	@OA\Response(
@@ -105,7 +169,7 @@
  * 			)
  *    	),
  *      @OA\Response(
- * 			response="503",
+ * 			response="400",
  * 			description="Unsuccessful purchase",
  * 			@OA\MediaType(
  *             mediaType="application/json",
@@ -114,7 +178,135 @@
  *     ),
  *     @OA\Response(
  * 			response="401",
- * 			description="Unauthorized action",
+ * 			description="Unauthorized action | Unverified request",
+ * 			@OA\MediaType(
+ *             mediaType="text/html"
+ * 			)
+ *     ),
+ *     @OA\Response(
+ * 		response="422",
+ * 		description="Validation Error Response",
+ * 		@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ * 					type="object",
+ * 					title="Validation Error Response Object",
+ * 					@OA\Property( property="error", type="string", format="string", description="validation error message")
+ * 				)
+ * 		)
+ *    ),
+ * 	  security={ {"bearer": {} } }
+ * )
+ * 
+ * @OA\Post(
+ *		path="/v1/capture",
+ *		tags={"FAC"},
+ * 		@OA\Server(
+ * 			url="/fac/api",
+ * 			description="FAC module endpoints for the platform"
+ * 		),
+ *		description="send a capture funds request",
+ *     	operationId="capture",
+ *		@OA\Parameter(
+ *         name="Signature",
+ *         description="A SHA256 hash signature header to verify request. The string components to hash are order_id|api_key|amount separated by pipe character (|) ",
+ *         required=true,
+ * 		   in="header",
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
+ *	   	@OA\RequestBody(
+ *		   description="post request parameters for a capture",
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/ModificationRequest")
+ *         )
+ *    	 ),
+ *     	@OA\Response(
+ * 			response="200",
+ * 			description="Successful capture",
+ * 			@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/SuccessResponse")
+ * 			)
+ *    	),
+ *      @OA\Response(
+ * 			response="400",
+ * 			description="Unsuccessful capture",
+ * 			@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/FailResponse")
+ * 			)
+ *     ),
+ *     @OA\Response(
+ * 			response="401",
+ * 			description="Unauthorized action | Unverified request",
+ * 			@OA\MediaType(
+ *             mediaType="text/html"
+ * 			)
+ *     ),
+ *     @OA\Response(
+ * 		response="422",
+ * 		description="Validation Error Response",
+ * 		@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ * 					type="object",
+ * 					title="Validation Error Response Object",
+ * 					@OA\Property( property="error", type="string", format="string", description="validation error message")
+ * 				)
+ * 		)
+ *    ),
+ * 	  security={ {"bearer": {} } }
+ * )
+ *
+ * @OA\Post(
+ *		path="/v1/tokenize",
+ *		tags={"FAC"},
+ * 		@OA\Server(
+ * 			url="/fac/api",
+ * 			description="FAC module endpoints for the platform"
+ * 		),
+ *		description="send a request to tokenize a credit card number",
+ *     	operationId="tokenize",
+ *		@OA\Parameter(
+ *         name="Signature",
+ *         description="A SHA256 hash signature header to verify request. The string components to hash are card|api_key|cvv separated by pipe character (|) ",
+ *         required=true,
+ * 		   in="header",
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
+ *	   	@OA\RequestBody(
+ *		   description="post request parameters for tokenize",
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/TokenizeRequest")
+ *         )
+ *    	 ),
+ *     	@OA\Response(
+ * 			response="200",
+ * 			description="Successful tokenization",
+ * 			@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/CreateCardResponse")
+ * 			)
+ *    	),
+ *      @OA\Response(
+ * 			response="400",
+ * 			description="Failed tokenization",
+ * 			@OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(ref="#/components/schemas/FailCreateCardResponse")
+ * 			)
+ *     ),
+ *     @OA\Response(
+ * 			response="401",
+ * 			description="Unauthorized action | Unverified request",
  * 			@OA\MediaType(
  *             mediaType="text/html"
  * 			)
@@ -135,9 +327,9 @@
  * )
  *
  * @OA\Schema(
- * 	   schema="PurchaseRequest",
- *     title="Purchase Request",
- * 	   required={"order_id,currency,amount,cvv,card"},
+ * 	   schema="AuthorizeRequest",
+ *     title="Authorize Request",
+ * 	   required={"expiry_month,expiry_year,currency,amount,cvv,card"},
  *	   type="object",
  *     description="POST request parameters and validation constraints",
  * 	   @OA\Property(
@@ -145,7 +337,7 @@
  * 			type="string",
  *     		format="string",
  *     		title="Order Id",
- *     		description="The order id of the purchase transaction"
+ *     		description="The order id of the transaction"
  * 	   ),
  * 	   @OA\Property(
  * 			property="currency",
@@ -198,13 +390,20 @@
  * 			type="boolean",
  * 			format="boolean",
  *     		title="Card Number is a Token PAN",
- *     		description="required if card number is a token PAN "
+ *     		description="required only if card number is a token PAN "
+ * 	   ),
+ * 	   @OA\Property(
+ * 			property="tokenize",
+ * 			type="boolean",
+ * 			format="boolean",
+ *     		title="Card Number should be tokenized",
+ *     		description="required only if card number is to be tokenize"
  * 	   )
  * )
  *	
-* @OA\Schema(
- * 	   schema="RefundRequest",
- *     title="Refund Request",
+ * @OA\Schema(
+ * 	   schema="ModificationRequest",
+ *     title="Modification Request",
  * 	   required={"order_id,amount"},
  *	   type="object",
  *     description="POST request parameters and validation constraints",
@@ -213,7 +412,7 @@
  * 			type="string",
  *     		format="string",
  *     		title="Order Id",
- *     		description="The order id of the purchase transaction"
+ *     		description="The order id of the authorize/captured transaction"
  * 	   ),
  * 	   @OA\Property(
  * 			property="amount",
@@ -224,6 +423,52 @@
  * 	   )
  * )
  *
+ * @OA\Schema(
+ * 	   schema="TokenizeRequest",
+ *     title="Tokenie Request",
+ * 	   required={"expiry_month,expiry_year,card_holder,cvv,card"},
+ *	   type="object",
+ *     description="POST request parameters and validation constraints",
+ * 	   @OA\Property(
+ * 			property="card_holder",
+ * 			type="string",
+ *     		format="string",
+ *     		title="Card Holder",
+ *     		description="An alpha numeric unique identifer for the credit card"
+ * 	   ),
+ * 	   @OA\Property(
+ * 			property="card",
+ * 			type="string",
+ * 			format="string",
+ *     		title="Card Number",
+ *     		description="The credit card number"
+ * 	   ),
+ * 	   @OA\Property(
+ * 			property="cvv",
+ * 			type="integer",
+ * 			format="integer",
+ *     		pattern="\d{3}",
+ *     		title="CCV",
+ *     		description="The 3 digit security code for the credit card"
+ * 	   ),
+ * 	   @OA\Property(
+ * 			property="expiry_month",
+ * 			type="integer",
+ * 			format="integer",
+ *     		pattern="\d{1,2}",
+ *     		title="Expiry Month",
+ *     		description="The expiration month on the credit card"
+ * 	   ),
+ * 	   @OA\Property(
+ * 			property="expiry_year",
+ * 			type="integer",
+ * 			format="integer",
+ *     		pattern="\d{4}",
+ *     		title="Expiry Year",
+ *     		description="The expiration year on the credit card"
+ * 	   )
+ * )
+ * 
  * @OA\Schema(
  *     title="Successful Response",
  * 	   type="object",
@@ -270,6 +515,48 @@
  * 		 format="string",
  *     	 title="Message",
  *     	 description="Message for response"
+ * 	   )
+ * )
+ * 
+ * @OA\Schema(
+ *     title="Successful Tokenize Response",
+ * 	   type="object",
+ * 	   schema="CreateCardResponse",
+ *     description="Formatted success response from FAC",
+ * 	   @OA\Property(
+ * 		 property="success",
+ * 		 type="boolean",
+ * 		 format="boolean",
+ *     	 title="Success indicator",
+ *     	 description="True as the process was successful"
+ * 	   ),
+ * 	   @OA\Property(
+ * 		 property="token",
+ * 		 type="string",
+ * 		 format="string",
+ *     	 title="token PAN",
+ *     	 description="FAC credit card token PAN"
+ * 	   )
+ * ) 
+ *
+ * @OA\Schema(
+ *     title="Failed Tokenize Response",
+ * 	   type="object",
+ * 	   schema="FailCreateCardResponse",
+ *     description="Formatted failed response from FAC",
+ * 	   @OA\Property(
+ * 		 property="success",
+ * 		 type="boolean",
+ * 		 format="boolean",
+ *     	 title="Success indicator",
+ *     	 description="False as the process was unsuccessful"
+ * 	   ),
+ * 	   @OA\Property(
+ * 		 property="message",
+ * 		 type="string",
+ * 		 format="string",
+ *     	 title="Error Message",
+ *     	 description="Message for failure if any"
  * 	   )
  * )
  * 
