@@ -42,7 +42,7 @@ class FACController extends BaseController
         					'expiryYear' => $request->input('expiry_year'),
         					'cvv' => $request->input('cvv'),
         				],
-                     	'createCard' => (!$request->has('tokenized') || $request->has('tokenize')) ? true : false,
+                     	'createCard' => $request->has('tokenize'),
                      	'cardReference' => $request->has('tokenized')? $request->input('card') : false
                    	]
                 		)
@@ -73,7 +73,7 @@ class FACController extends BaseController
         					'expiryYear' => $request->input('expiry_year'),
         					'cvv' => $request->input('cvv'),
         				],
-                     	'createCard' => (!$request->has('tokenized') || $request->has('tokenize')) ? true : false,
+                     	'createCard' => $request->has('tokenize'),
                      	'cardReference' => $request->has('tokenized')? $request->input('card') : false
                    	]
                 		)
