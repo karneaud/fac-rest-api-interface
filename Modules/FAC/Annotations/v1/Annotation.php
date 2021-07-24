@@ -363,8 +363,8 @@
  * 	   ),
  * 	   @OA\Property(
  * 			property="cvv",
- * 			type="integer",
- * 			format="integer",
+ * 			type="string",
+ * 			format="string",
  *     		pattern="\d{3}",
  *     		title="CCV",
  *     		description="The 3 digit security code for the credit card"
@@ -445,8 +445,8 @@
  * 	   ),
  * 	   @OA\Property(
  * 			property="cvv",
- * 			type="integer",
- * 			format="integer",
+ * 			type="string",
+ * 			format="string",
  *     		pattern="\d{3}",
  *     		title="CCV",
  *     		description="The 3 digit security code for the credit card"
