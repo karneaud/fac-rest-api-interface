@@ -49,7 +49,7 @@ class VerifyRequest
         	switch(true)
         	{
             	case (bool) $request->is('fac/api/v1/tokenize') :
-            		$error = $this->testHASH(sprintf("%s|%s|%d", 
+            		$error = $this->testHASH(sprintf("%s|%s|%s", 
                 				$request->input('card'),
                             	$user->api_key,
                             	$request->input('cvv')), $request->header('Signature'));
