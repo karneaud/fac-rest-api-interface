@@ -2,8 +2,12 @@ name: Deploy
 
 on:
   push:
+<<<<<<< HEAD
     branches:
       - release/beta
+=======
+    branches: [release/beta]
+>>>>>>> feature/auth-capt
 
 jobs:
   build:

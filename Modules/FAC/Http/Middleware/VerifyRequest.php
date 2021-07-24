@@ -43,14 +43,36 @@ class VerifyRequest
     {
     	if(!$request->hasHeader('Signature') || !($user = $this->auth->guard($guard)->user()))
         	return response('Unauthorized', 401);
-    	$amount = number_format ($request->input('amount'), 2, ".","");
+    	
     	try {
-        	if(hash('sha256', "{$request->input('order_id')}|{$user->api_key}|$amount") != $request->header('Signature')) throw new \Exception('Unverified request!');
+        	$error = false;
+        	switch(true)
+        	{
+            	case (bool) $request->is('fac/api/v1/tokenize') :
+            		$error = $this->testHASH(sprintf("%s|%s|%d", 
+                				$request->input('card'),
+                            	$user->api_key,
+                            	$request->input('cvv')), $request->header('Signature'));
+            		break;
+            	default : $error = $this->testHASH(sprintf("%s|%s|%s", 
+                			$request->input('order_id'),
+                            $user->api_key,
+                            number_format ($request->input('amount'), 2, ".","")), $request->header('Signature')); 
+            		break;
+        		
+        	}
+        
+        	if(!$error) throw new \Exception('Unverified request!'); 
+        	
         } catch(\Exception $e) {
-        	Log::alert("{$e->getMessage()}  for KEY #{$user->api_key} with request {$request->input('order_id')} {$amount} "  );
+        	Log::alert("{$e->getMessage()}  for KEY #{$user->api_key} with request " . print_r($request->all(), true)  );
         	return response($e->getMessage(), 401);
         }
     
         return $next($request);
+    }
+
+	private function testHASH($string, $sig) {
+    	return hash('sha256', $string) == $sig;
     }
 }

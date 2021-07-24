@@ -3,6 +3,7 @@ namespace Modules\FAC\Http\Controllers\API\v1;
 
 use Illuminate\Http\Request;
 use Modules\FAC\Services\API\v1\FACService;
+use Modules\FAC\Http\Requests\API\v1\Tokenize;
 use Modules\FAC\Http\Requests\API\v1\Authorize;
 use Modules\FAC\Http\Controllers\Controller as BaseController;
 
@@ -41,13 +42,13 @@ class FACController extends BaseController
         					'expiryYear' => $request->input('expiry_year'),
         					'cvv' => $request->input('cvv'),
         				],
-                     	'createCard' => !($is_tokenized = $request->input('tokenized') ) ? true : false,
-                     	'cardReference' => $is_tokenized? $request->input('card') : false
+                     	'createCard' => $request->has('tokenize'),
+                     	'cardReference' => $request->has('tokenized')? $request->input('card') : false
                    	]
                 		)
             	)),
         	
-        	!$response['success']? 503 : 200
+        	!$response['success']? 400 : 200
         );
     }
 	
@@ -72,11 +73,38 @@ class FACController extends BaseController
         					'expiryYear' => $request->input('expiry_year'),
         					'cvv' => $request->input('cvv'),
         				],
-                     	'createCard' => true
+                     	'createCard' => $request->has('tokenize'),
+                     	'cardReference' => $request->has('tokenized')? $request->input('card') : false
                    	]
                 		)
             	)),
-        	!$response['success']? 503 : 200
+        	!$response['success']? 400 : 200
+        );
+    }
+	/** 
+	 * Sends a tokenize only request to FAC
+	 * @method tokenize
+	 * @params Illuminate\Http\Request $request POST request inputs
+	 * @return Illuminate\Http\JsonResponse $response response content as application/json
+	 * @throws Illuminate\Validation\ValidationException
+	 */ 
+	public function tokenize(Request $request) {
+    	
+    	$this->validateRequest($request, new Tokenize);
+    	return $this->returnResponse(
+        	$response = ($this->service->tokenize(
+            	array_merge(
+                		['customerReference' => $request->input('card_holder') ], 
+                		['card' => [
+        					'number' => $request->input('card'), 
+        					'expiryMonth' => $request->input('expiry_month'), 
+        					'expiryYear' => $request->input('expiry_year'),
+        					'cvv' => $request->input('cvv')
+        					]
+                   		]
+                		)
+            	)),
+        	!$response['success']? 400 : 200
         );
     }
 	
@@ -100,7 +128,31 @@ class FACController extends BaseController
                       'amount' => $request->input('amount') 	
                    	]
             	),
-        	!$response['success']? 503 : 200
+        	!$response['success']? 400 : 200
+        );
+    }
+
+	/** 
+	 * Sends a capture request to FAC
+	 * @method capture
+	 * @params Illuminate\Http\Request $request POST request inputs
+	 * @return Illuminate\Http\JsonResponse $response response content as application/json
+	 * @throws Illuminate\Validation\ValidationException
+	 */ 
+	public function capture(Request $request) {
+    	$this->validate($request, [
+        	'order_id' => 'required|string',
+        	'amount' => 'required|numeric'
+        ]);
+    
+    	return $this->returnResponse(
+        	$response = $this->service->capture(
+                	[
+                      'transactionId' => $request->input('order_id'),
+                      'amount' => $request->input('amount') 	
+                   	]
+            	),
+        	!$response['success']? 400 : 200
         );
     }
 	

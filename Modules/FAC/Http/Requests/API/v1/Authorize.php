@@ -27,6 +27,9 @@ class Authorize extends FormRequest
         });
     
         return [
+        	'cvv' => 'required|digits:3', 
+        	'expiry_month' => 'required|integer|digits_between:1,2', 
+        	'expiry_year' => 'required|numeric|digits:4',
             'order_id' => "required", 
             'amount' => 'required|numeric', 
         	'currency' => ['required', function ($attribute, $value, $fail) {
@@ -34,15 +37,11 @@ class Authorize extends FormRequest
                 	$fail($attribute.' is invalid.');
             	}
         	}],
-        	'card' => 'required|card_number',
-        	'tokenized' => 'boolean',
-        	'cvv' => 'required|digits:3', 
-        	'expiry_month' => 'required|integer|digits_between:1,2', 
-        	'expiry_year' => 'required|numeric|digits:4'
+        	'card' => 'required|card_number'
         ];
     }
 
-    /**
+	/**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
