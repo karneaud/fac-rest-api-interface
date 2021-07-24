@@ -97,7 +97,7 @@ class FACService {
                     ];
         	
         	if(method_exists($response,'getCardReference')) 
-            	$return['token'] =  $response->getCardReference() ?? null ;
+            	$return['token'] = $response->getCardReference() ?? null ;
         	
         } catch(\Exception $e) {
         		$return =  
