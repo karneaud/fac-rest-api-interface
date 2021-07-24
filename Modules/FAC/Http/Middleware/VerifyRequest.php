@@ -65,7 +65,7 @@ class VerifyRequest
         	if(!$error) throw new \Exception('Unverified request!'); 
         	
         } catch(\Exception $e) {
-        	Log::alert("{$e->getMessage()}  for KEY #{$user->api_key} with request ");
+        	Log::alert("{$e->getMessage()}  for KEY #{$user->api_key} with request " . $request->header('Signature') );
         	return response($e->getMessage(), 401);
         }
     
