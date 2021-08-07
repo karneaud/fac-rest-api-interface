@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Modules\FAC\Services\API\v1\FACService;
 use Modules\FAC\Http\Requests\API\v1\Tokenize;
 use Modules\FAC\Http\Requests\API\v1\Authorize;
+use Modules\FAC\Http\Requests\API\v1\Recurring;
 use Modules\FAC\Http\Controllers\Controller as BaseController;
 
 class FACController extends BaseController
@@ -44,8 +45,7 @@ class FACController extends BaseController
         				],
                      	'createCard' => $request->has('tokenize'),
                      	'cardReference' => $request->has('tokenized')? $request->input('card') : false
-                   	]
-                		)
+                   	])
             	)),
         	
         	!$response['success']? 400 : 200
@@ -77,6 +77,49 @@ class FACController extends BaseController
                      	'cardReference' => $request->has('tokenized')? $request->input('card') : false
                    	]
                 		)
+            	)),
+        	!$response['success']? 400 : 200
+        );
+    }
+	/** 
+	 * Sends a authorize recurring payment request to FAC
+	 * @method subscribe
+	 * @params Illuminate\Http\Request $request POST request inputs
+	 * @return Illuminate\Http\JsonResponse $response response content as application/json
+	 * @throws Illuminate\Validation\ValidationException
+	 */ 
+	public function subscribe(Request $request) {
+    	
+    	$this->validateRequest($request, new Recurring);
+    	
+    	switch(true)
+        {
+        	case $request->has('is_trial') :
+        		$recurring_type = ['isFreeTrial' => true ]; break;
+        	case $request->has('is_subsequent') :
+        		$recurring_type = ['isSubsequentRecurring' => true ]; break;
+        	default : $recurring_type = []; break;
+        }
+    
+    	return $this->returnResponse(
+        	$response = ($this->service->authorize(
+            	array_merge(
+                	$recurring_type,
+                	$request->only('card','amount','currency'), 
+                	['transactionId' => $request->input('order_id'),
+                     	'card' => [
+        					'number' => $request->input('card'), 
+        					'expiryMonth' => $request->input('expiry_month'), 
+        					'expiryYear' => $request->input('expiry_year'),
+        					'cvv' => $request->input('cvv'),
+        				],
+                     	'executionDate' => $request->input('billing_date'),
+                     	'isRecurring' => true,
+                     	'frequency' => $request->input('billing_cycle'),
+                     	'numberOfRecurrences' => $request->input('how_many_times'),
+                     	'createCard' => $request->has('tokenize'),
+                     	'cardReference' => $request->has('tokenized')? $request->input('card') : false
+                   	])
             	)),
         	!$response['success']? 400 : 200
         );

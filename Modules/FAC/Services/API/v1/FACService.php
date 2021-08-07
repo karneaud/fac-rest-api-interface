@@ -83,11 +83,9 @@ class FACService {
 	 */ 
 	protected function __getResponse($request) : array {
     	try {
-        	
         	$response = $request->send();
         	if(!$response->isSuccessful()) throw new InvalidResponseException("Invalid response {$response->getMessage()}", 
                                                                               	method_exists($response,'getReasonCode')? $response->getReasonCode() ?? 400 : null );
-        	
         	$return = [ 
             		  'success' => true,
                       'order_id' => $response->getTransactionId(),
