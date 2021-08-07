@@ -17,7 +17,7 @@
         }
     },
 	"require": {
-    	"bitpiston/omnipay-first-atlantic-commerce":"dev-master#907229a846a35896e1b95709de5c4800f955a6e5 as dev-master"
+    	"bitpiston/omnipay-first-atlantic-commerce":"dev-master#b6e15f20202aa3914e241bfdbf63ae0a1f3455e8 as dev-master"
     },
     "autoload": {
         "psr-4": {
