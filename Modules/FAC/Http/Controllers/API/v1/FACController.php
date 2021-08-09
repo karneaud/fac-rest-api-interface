@@ -83,12 +83,12 @@ class FACController extends BaseController
     }
 	/** 
 	 * Sends a authorize recurring payment request to FAC
-	 * @method subscribe
+	 * @method recurring
 	 * @params Illuminate\Http\Request $request POST request inputs
 	 * @return Illuminate\Http\JsonResponse $response response content as application/json
 	 * @throws Illuminate\Validation\ValidationException
 	 */ 
-	public function subscribe(Request $request) {
+	public function recurring(Request $request) {
     	
     	$this->validateRequest($request, new Recurring);
     	
