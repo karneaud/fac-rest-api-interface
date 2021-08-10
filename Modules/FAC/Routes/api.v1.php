@@ -23,5 +23,6 @@ $router->group(['prefix' => 'v1', 'namespace' => 'API\v1' ], function ($router) 
    $router->post('/refund', 'FACController@refund' );
    $router->post('/capture', 'FACController@capture' );
    $router->post('/tokenize', 'FACController@tokenize' );
-   $router->post('/subscription','FACController@subscribe');
+   $router->post('/subscription','FACController@recurring');
+   $router->post('/subscription/cancel','FACController@cancelRecurring');
 });
