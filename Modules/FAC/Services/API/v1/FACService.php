@@ -74,7 +74,16 @@ class FACService {
 	 */
 	public function refund(array $params) {
     	return $this->__getResponse($this->gateway->refund($params));
-    }                        
+    } 
+	/**
+	 * Sends cancel recurring modification requests to FAC SOAP
+	 * @method cancelRecurring
+	 * @param array $params the necessary parameters to refund a previous capture transaction 
+	 * @return array An array response or error description
+	 */
+	public function cancelRecurring(array $params) {
+    	return $this->__getResponse($this->gateway->cancelRecurring($params));
+    } 
 	/**
 	 * sends FAC request and parses response
 	 * @method __getResponse
