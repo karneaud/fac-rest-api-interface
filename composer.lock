@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8597065ea84080c377bb3c76bfcb05c",
+    "content-hash": "1d79ba0e9215af9df72c5b92cf0158b5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -158,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/karneaud/omnipay-first-atlantic-commerce.git",
-                "reference": "b6e15f20202aa3914e241bfdbf63ae0a1f3455e8"
+                "reference": "63edb51f73d34f28ed6b8cb21e1b6afa503e5892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/karneaud/omnipay-first-atlantic-commerce/zipball/b6e15f20202aa3914e241bfdbf63ae0a1f3455e8",
-                "reference": "b6e15f20202aa3914e241bfdbf63ae0a1f3455e8",
+                "url": "https://api.github.com/repos/karneaud/omnipay-first-atlantic-commerce/zipball/63edb51f73d34f28ed6b8cb21e1b6afa503e5892",
+                "reference": "63edb51f73d34f28ed6b8cb21e1b6afa503e5892",
                 "shasum": ""
             },
             "require": {
@@ -201,7 +201,7 @@
             "support": {
                 "source": "https://github.com/karneaud/omnipay-first-atlantic-commerce/tree/master"
             },
-            "time": "2021-07-28T18:53:19+00:00"
+            "time": "2021-08-09T23:35:35+00:00"
         },
         {
             "name": "brick/math",
