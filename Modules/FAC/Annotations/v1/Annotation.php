@@ -226,7 +226,7 @@
  *    	 ),
  *     	@OA\Response(
  * 			response="200",
- * 			description="Successful cancellation,
+ * 			description="Successful cancellation",
  * 			@OA\MediaType(
  *             mediaType="application/json",
  *             @OA\Schema(ref="#/components/schemas/SuccessResponse")
@@ -612,14 +612,14 @@
  * 	   @OA\Property(
  * 			property="is_trial",
  * 			type="boolean",
- * 			format="boolean"
+ * 			format="boolean",
  *     		title="Is it a FREE TRIAL?",
  *     		description="Indicates if this is a free trial subscription"
  * 	   ),
  * 	   @OA\Property(
  * 			property="is_subsequent",
  * 			type="boolean",
- * 			format="boolean"
+ * 			format="boolean",
  *     		title="",
  *     		description=""
  * 	   ),
