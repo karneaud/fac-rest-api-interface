@@ -1,12 +1,12 @@
-vendor
 /.idea
 /.vscode
 Homestead.json
 Homestead.yaml
 .env
 clover.xml
-tests/coverage
-tests/phpunit.junit.xml
+tests
 .phpunit.result.cache
 storage/api-docs
 storage/debugbar
+.yamllint.yml
+phpunit.xml
