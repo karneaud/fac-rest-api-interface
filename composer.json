@@ -28,8 +28,6 @@
         "symfony/http-client": "^5.2",
         "omnipay/common": "^3.0",
         "php-http/buzz-adapter": "^1.0",
-        "zircote/swagger-php": "^3.1",
-        "darkaonline/swagger-lume": "^8.0",
         "bitpiston/omnipay-first-atlantic-commerce": "dev-master#63edb51f73d34f28ed6b8cb21e1b6afa503e5892 as dev-master"
     },
     "require-dev": {
