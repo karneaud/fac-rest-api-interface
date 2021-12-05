@@ -3,7 +3,7 @@
 A JSON webservice interface for some of FAC's XML services endpoint.
 
 ### Overview 
-Built from **(Strong Lumen](https://github.com/UnicornGlobal/strong-lumen)**, but with a bunch of security focused features 💪 
+Built from **[Strong Lumen](https://github.com/UnicornGlobal/strong-lumen)**, but with a bunch of security focused features 💪 
 
 #### Version
 
